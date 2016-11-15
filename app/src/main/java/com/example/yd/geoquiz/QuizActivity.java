@@ -27,7 +27,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 //Скоро тут будет код!
-                toast.makeText(QuizActivity.this, R.string.correct_toast, Toast.LENGTH_LONG).show();
+                toast.makeText(QuizActivity.this, R.string.correct_toast, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -36,7 +36,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 //for false button
-                toast.makeText(QuizActivity.this, R.string.incorrect_toast, Toast.LENGTH_LONG).show();
+                toast.makeText(QuizActivity.this, R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
             }
         });
 

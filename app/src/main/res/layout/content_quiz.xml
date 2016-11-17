@@ -38,11 +38,23 @@
 
     <Button
         android:id="@+id/next_button"
-        android:layout_width="64pt"
-        android:layout_height="32pt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/next_question"
-        android:drawableRight="@drawable/arrow_right_128"
+        />
+    <!-- android:drawableRight="@drawable/arrow_right_128"
         android:drawableEnd="@drawable/arrow_right_128"
         android:drawablePadding="4dp"
+    -->
+
+    <Button
+        android:id="@+id/prev_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prev_question"
         />
+    <!-- android:drawableRight="@drawable/arrow_left_128"
+        android:drawableEnd="@drawable/arrow_left_128"
+        android:drawablePadding="4dp"
+        -->
 </LinearLayout>

@@ -18,6 +18,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private TextView mTextView;
     private Button mNextButton;
+    private Button mPrevButton;
+
     //неправильно, но пока так
     private Question[] mQuestions = new Question[]{
             new Question(R.string.question_oceans,true),
@@ -64,6 +66,27 @@ public class QuizActivity extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                mCurrentIndex = (mCurrentIndex + 1) % mQuestions.length;
+                updateQuestion();
+            }
+        });
+
+        mPrevButton = (Button)findViewById(R.id.prev_button);
+        mPrevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCurrentIndex = (mCurrentIndex - 1);
+                if(mCurrentIndex == -1){
+                    mCurrentIndex = mQuestions.length - 1;
+                }
+                updateQuestion();
+            }
+        });
+
+        //adding listener to textview
+        mTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestions.length;
                 updateQuestion();
             }

@@ -1,7 +1,8 @@
 package com.example.yd.geoquiz;
 
 /**
- * Created by YD on 16.11.2016.
+ * Created on 16.11.2016
+ @author Puzino Yury.
  */
 
 public class Question {

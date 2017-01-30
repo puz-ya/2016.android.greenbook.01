@@ -11,6 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Created on 16.11.2016
+ @author Puzino Yury.
+ */
+
 public class QuizActivity extends AppCompatActivity {
 
     private Button mTrueButton;
@@ -21,7 +26,16 @@ public class QuizActivity extends AppCompatActivity {
     private Button mNextButton;
     private Button mPrevButton;
 
+    /* Logs levels:
+    * ERROR     Log.e
+    * WARNING   Log.w
+    * INFO      Log.i
+    * DEBUG     Log.d
+    * VERBOSE   Log.v   only for developers
+    */
     private static final String TAG = "QuizAct";
+    //index for saving in Bundle
+    private static final String KEY_INDEX = "index";
 
     //неправильно, но пока так
     private Question[] mQuestions = new Question[]{
@@ -42,6 +56,11 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //check if we changed configuration of the phone
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
 
         //getting text from array and insert into textview
         mTextView = (TextView) findViewById(R.id.question_textview);
@@ -169,5 +188,14 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //saving our index from death
+    @Override
+    protected void onSaveInstanceState(Bundle bundle){
+        super.onSaveInstanceState(bundle);
+
+        Log.i(TAG, "OnSaveInstanceState");
+        bundle.putInt(KEY_INDEX, mCurrentIndex);
     }
 }

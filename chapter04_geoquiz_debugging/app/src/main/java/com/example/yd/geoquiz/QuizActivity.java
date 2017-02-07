@@ -38,7 +38,7 @@ public class QuizActivity extends AppCompatActivity {
     private static final String KEY_INDEX = "index";
 
     //неправильно, но пока так
-    private Question[] mQuestions = new Question[]{
+    private final Question[] mQuestions = new Question[]{
             new Question(R.string.question_oceans,true),
             new Question(R.string.question_mideast, false),
             new Question(R.string.question_africa, false),
@@ -63,6 +63,7 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         //getting text from array and insert into textview
+        //comment to java.lang.RuntimeException
         mTextView = (TextView) findViewById(R.id.question_textview);
         updateQuestion();
 
@@ -150,6 +151,10 @@ public class QuizActivity extends AppCompatActivity {
 
     //set new question
     private void updateQuestion(){
+
+        //logging + creating new exception
+        //Log.d(TAG, "Update question text #" + mCurrentIndex, new Exception());
+
         int question = mQuestions[mCurrentIndex].getTextResId();
         mTextView.setText(question);
     }
@@ -157,7 +162,7 @@ public class QuizActivity extends AppCompatActivity {
     private void checkAnswer(boolean userPressedTrue){
         boolean answerIsTrue = mQuestions[mCurrentIndex].isAnswerTrue();
 
-        int messageResId = 0;
+        int messageResId;
 
         if(userPressedTrue == answerIsTrue){
             messageResId = R.string.correct_toast;

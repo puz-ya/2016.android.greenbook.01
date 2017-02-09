@@ -1,0 +1,1 @@
+Small amount of info about different API (before 7.0, API 24).

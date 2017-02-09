@@ -1,5 +1,6 @@
 package com.example.yd.geoquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private Button mTrueButton;
     private Button mFalseButton;
+    private Button mCheatButton;
     public static Toast toast;
 
     private TextView mTextView;
@@ -36,6 +38,8 @@ public class QuizActivity extends AppCompatActivity {
     private static final String TAG = "QuizAct";
     //index for saving in Bundle
     private static final String KEY_INDEX = "index";
+    //tag for intent
+    public static final String EXTRA_ANSWER = "answer_is_true";
 
     //неправильно, но пока так
     private final Question[] mQuestions = new Question[]{
@@ -115,6 +119,19 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestions.length;
                 updateQuestion();
+            }
+        });
+
+        //new cheat button (show answer)
+        mCheatButton = (Button) findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //starting CheatActivity
+                //explicit Intent
+                Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
+                
+                startActivity(intent);
             }
         });
     }

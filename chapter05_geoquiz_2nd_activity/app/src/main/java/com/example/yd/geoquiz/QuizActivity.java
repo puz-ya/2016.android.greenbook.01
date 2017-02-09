@@ -1,5 +1,6 @@
 package com.example.yd.geoquiz;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,8 +39,10 @@ public class QuizActivity extends AppCompatActivity {
     private static final String TAG = "QuizAct";
     //index for saving in Bundle
     private static final String KEY_INDEX = "index";
-    //tag for intent
-    public static final String EXTRA_ANSWER = "answer_is_true";
+    //tag for intent cheat
+    private int REQUEST_CHEATCODE = 0;
+    private boolean mIsCheater;
+    public static final String ANSWER_INDEX = "cheating_was_made";
 
     //неправильно, но пока так
     private final Question[] mQuestions = new Question[]{
@@ -63,7 +66,12 @@ public class QuizActivity extends AppCompatActivity {
 
         //check if we changed configuration of the phone
         if (savedInstanceState != null) {
+            //save current question ID
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+            //save flag if user cheated
+            mIsCheater = savedInstanceState.getBoolean(ANSWER_INDEX, false);
+            //and we can remember id of cheated question
+            //but PY is lazy today :\
         }
 
         //getting text from array and insert into textview
@@ -97,6 +105,8 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestions.length;
+                //update value
+                mIsCheater = false;
                 updateQuestion();
             }
         });
@@ -129,9 +139,12 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //starting CheatActivity
                 //explicit Intent
-                Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
-                
-                startActivity(intent);
+                //old one: Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
+
+                boolean bAnswer = mQuestions[mCurrentIndex].isAnswerTrue();
+                Intent intent = CheatActivity.cheatingIntent(QuizActivity.this, bAnswer);
+                //startActivity(intent);
+                startActivityForResult(intent, REQUEST_CHEATCODE);
             }
         });
     }
@@ -181,13 +194,32 @@ public class QuizActivity extends AppCompatActivity {
 
         int messageResId;
 
-        if(userPressedTrue == answerIsTrue){
-            messageResId = R.string.correct_toast;
+        if(mIsCheater){
+            messageResId = R.string.judgment_toast;
         }else{
-            messageResId = R.string.incorrect_toast;
+
+            if(userPressedTrue == answerIsTrue){
+                messageResId = R.string.correct_toast;
+            }else{
+                messageResId = R.string.incorrect_toast;
+            }
         }
 
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        if(resultCode != Activity.RESULT_OK){
+            return;
+        }
+
+        if(requestCode == REQUEST_CHEATCODE){
+            if(intent == null){
+                return;
+            }
+            mIsCheater = intent.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+        }
     }
 
     @Override
@@ -219,5 +251,6 @@ public class QuizActivity extends AppCompatActivity {
 
         Log.i(TAG, "OnSaveInstanceState");
         bundle.putInt(KEY_INDEX, mCurrentIndex);
+        bundle.putBoolean(ANSWER_INDEX, mIsCheater);
     }
 }

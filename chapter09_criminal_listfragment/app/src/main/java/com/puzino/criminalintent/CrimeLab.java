@@ -12,6 +12,7 @@ import java.util.UUID;
  * @author Puzino Yury.
  */
 
+/** Singletone with crimes list */
 public class CrimeLab {
     private static CrimeLab mCrimeLab;
     private List<Crime> mCrimes;

@@ -42,6 +42,12 @@ public class CrimeListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateUI();
+    }
+
     /** Simple Holder class, will be extended */
     private class CrimeHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener{
@@ -121,7 +127,12 @@ public class CrimeListFragment extends Fragment {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
 
-        mCrimeAdapter = new CrimeAdapter(crimes);
-        mCrimeRecyclerView.setAdapter(mCrimeAdapter);
+        //if we updated data - activate setChanged()
+        if(mCrimeAdapter == null){
+            mCrimeAdapter = new CrimeAdapter(crimes);
+            mCrimeRecyclerView.setAdapter(mCrimeAdapter);
+        }else{
+            mCrimeAdapter.notifyDataSetChanged();
+        }
     }
 }

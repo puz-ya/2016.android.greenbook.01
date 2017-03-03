@@ -1,5 +1,6 @@
 package com.puzino.criminalintent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,7 +44,7 @@ public class CrimeListFragment extends Fragment {
 
     /** Simple Holder class, will be extended */
     private class CrimeHolder extends RecyclerView.ViewHolder
-    implements View.OnClickListener{
+        implements View.OnClickListener{
 
         /** links to Views - text of the crime */
         private TextView mTitleTextView;
@@ -75,7 +76,9 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onClick(View view){
             //here will be real onClick, not now.
-            Toast.makeText(getActivity(), mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
+            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            startActivity(intent);
         }
     }
 

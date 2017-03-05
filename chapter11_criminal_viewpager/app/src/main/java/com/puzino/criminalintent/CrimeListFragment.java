@@ -86,7 +86,7 @@ public class CrimeListFragment extends Fragment {
         public void onClick(View view){
             //here will be real onClick, not now.
             //Toast.makeText(getActivity(), mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             startActivity(intent);
             //if we want return value
             //startActivityForResult(intent, REQUEST_CRIME);

@@ -27,6 +27,9 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mCrimeAdapter;
 
+    //if we want return value
+    //private static final int REQUEST_CRIME = 1;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup,
                              Bundle savedInstanceState){
@@ -85,8 +88,18 @@ public class CrimeListFragment extends Fragment {
             //Toast.makeText(getActivity(), mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
             Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
             startActivity(intent);
+            //if we want return value
+            //startActivityForResult(intent, REQUEST_CRIME);
         }
     }
+
+    /** if we want return value
+    @Override
+    public void onActivityResult(int reqCode, int resCode, Intent intent){
+        if(reqCode == REQUEST_CRIME){
+            //
+        }
+    } */
 
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>{
 
@@ -132,6 +145,7 @@ public class CrimeListFragment extends Fragment {
             mCrimeAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mCrimeAdapter);
         }else{
+            //we don't need to change ALL
             mCrimeAdapter.notifyDataSetChanged();
         }
     }
